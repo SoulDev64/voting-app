@@ -1,8 +1,8 @@
 <div class="home">
   <div class="home-content">
-    <h1 color="accent">VotingSpace</h1>
-    <h2>Create and take polls</h2>
-    <button mat-raised-button color="accent" routerLink="/polls">View polls</button>
+    <h1 color="accent">Plateforme de votes</h1>
+    <h2>Assemblée Citoyenne des Gilets Jaunes de Grand Pau</h2>
+    <button mat-raised-button color="accent" routerLink="/polls">Liste des votes</button>
     <p *ngIf="!isLoggedIn()">Or <a routerLink="/login">log in</a> to create your own poll</p>
     <p *ngIf="isLoggedIn()">Or <a routerLink="/create">create</a> a new poll</p>
   </div>
