@@ -5,16 +5,16 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   name: {
     type: String,
-    required: 'Name is required'
+    required: 'Nom requis'
   },
   email: {type: String,
     unique: true,
-    required: 'Email is required',
-    match: [/.+\@.+\..+/, "Please enter a valid email"]
+    required: 'Email requis',
+    match: [/.+\@.+\..+/, "Merci d\'indiquer un email valide"]
   },
   password: {
     type: String,
-    required: 'Password is required'
+    required: 'Mot de passe requis'
   }
 });
 

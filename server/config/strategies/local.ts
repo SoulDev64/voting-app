@@ -11,13 +11,11 @@ export default function addLocalStrategy() {
   }, (username, password, done) => {
     User.findOne({email: username}, (err, user) => {
       if (err) return done(err);
-      if (!user) return done(null, false, {message: 'User doesn\'t exist'});
+      if (!user) return done(null, false, {message: 'Cet utilisateur n\'éxiste pas'});
       if (!user.validPassword(password)) {
-        return done(null, false, {message: 'Password is incorrect'});
+        return done(null, false, {message: 'Mot de passe incorrect'});
       }
       return done(null, user);
     })
   }));
 }
-
-

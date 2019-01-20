@@ -45,7 +45,7 @@ describe('User controller', () => {
         .send({email: 'example@example.com'})
         .end((err, res) => {
           res.should.have.status(400);
-          should.equal(res.body.message, 'Password is required');
+          should.equal(res.body.message, 'Mot de passe requis');
           done();
         })
     });
@@ -69,7 +69,7 @@ describe('User controller', () => {
         .send( {email: 'invalid@example.com', password: validUserCredentials.password})
         .end((err, res) => {
           res.should.have.status(400);
-          should.equal(res.body.message, 'User doesn\'t exist');
+          should.equal(res.body.message, 'Cet utilisateur n\'éxiste pas');
           done();
         })
     });

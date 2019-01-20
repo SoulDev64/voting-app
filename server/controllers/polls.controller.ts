@@ -16,7 +16,7 @@ export default class PollsController {
     const { id, value} = req.body;
 
     if (value && !req.isAuthenticated()) {
-      return res.status(403).send({message: 'User is not authorized'});
+      return res.status(403).send({message: 'Non autorisé'});
     }
 
     let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -30,14 +30,14 @@ export default class PollsController {
     ipVoted = req.poll.ips.indexOf(ip) !== -1;
 
     if (userVoted || ipVoted) {
-      return res.status(403).send({message: 'You already voted'});
+      return res.status(403).send({message: 'Vous avez déjà voté'});
     }
     return next();
   };
 
   canDelete = (req, res, next) => {
     if (!req.poll.createdBy.equals(req.user._id)) {
-      return res.status(403).send({message: 'User is not authorized'})
+      return res.status(403).send({message: 'Non autorisé'})
     }
     return next();
   };
@@ -45,7 +45,7 @@ export default class PollsController {
   getPoll(req, res, next) {
     Poll.findById(req.params.id).exec((err, poll) => {
       if (err) return res.status(500).send(err);
-      if (!poll) return res.status(500).send({message: 'Poll doesn\'t exist'});
+      if (!poll) return res.status(500).send({message: 'Ce vote n\'éxiste pas'});
       req.poll = poll;
       return next();
     })
