@@ -74,7 +74,8 @@ export class PollComponent implements OnInit, OnDestroy {
   }
 
   canCreateCustomOption() {
-    return this.auth.isLoggedIn();
+    return false;
+    //return this.auth.isLoggedIn();
   }
 
   delete(poll) {

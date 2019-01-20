@@ -24,23 +24,29 @@ export class CreateComponent implements OnInit {
   ngOnInit() {
     this.pollForm = this.fb.group({
       name: ['', Validators.required],
-      options: this.fb.array([this.initOption(), this.initOption()])
+      options: this.fb.array(this.initOptions())
     });
   }
 
   addOption() {
     const optionsControl = <FormArray>this.pollForm.controls['options'];
-    optionsControl.push(this.initOption());
+    optionsControl.push(this.fb.group({value: ['', Validators.required]}));
   }
 
   getOptionName(i) {
     return `Option ${i + 1}`;
   }
 
-  initOption() {
-    return this.fb.group({
-      value: ['', Validators.required]
-    });
+  initOptions() {
+    return [
+      this.fb.group({value: ['Excellent', Validators.required]}),
+      this.fb.group({value: ['Très bien', Validators.required]}),
+      this.fb.group({value: ['Bien', Validators.required]}),
+      this.fb.group({value: ['Assez bien', Validators.required]}),
+      this.fb.group({value: ['Passable', Validators.required]}),
+      this.fb.group({value: ['Insuffisant', Validators.required]}),
+      this.fb.group({value: ['À rejeter', Validators.required]})
+    ];
   }
 
   removeOption(i) {
