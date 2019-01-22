@@ -72,6 +72,12 @@ export default class PollsController {
   vote = (req, res) => {
     const { id, value} = req.body,
       poll = req.poll;
+
+    // Vote seulement si authentifié
+    if (!req.isAuthenticated()) {
+      return res.status(403).send({message: 'Non autorisé'});
+    }
+    
     if (id) {
       const optionToVote = poll.options.id(id);
       optionToVote.votes++;
