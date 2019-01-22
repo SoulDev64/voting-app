@@ -43,7 +43,7 @@ export class PollComponent implements OnInit, OnDestroy {
       option: [{value: '', disabled: false}],
       newOption: [{value: '', disabled: false}]
     });
-
+    /*
     this.voteForm.controls['option'].valueChanges.subscribe((val) => {
       if (val) {
         this.voteForm.get('newOption').disable();
@@ -59,6 +59,7 @@ export class PollComponent implements OnInit, OnDestroy {
         this.voteForm.get('option').enable();
       }
     });
+    */
   }
 
   ngOnDestroy() {

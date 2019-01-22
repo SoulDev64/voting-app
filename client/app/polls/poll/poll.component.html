@@ -5,6 +5,7 @@
           [formGroup]="voteForm"
           (submit)="vote(voteForm.value)">
       <div class="poll">
+        <!--
         <mat-select placeholder="Choisissez votre jugement"
                    [formControl]="voteForm.controls['option']">
           <mat-option></mat-option>
@@ -12,8 +13,14 @@
             {{option.value}}
           </mat-option>
         </mat-select>
+        -->
+        <mat-radio-group [formControl]="voteForm.controls['option']">
+          <mat-radio-button *ngFor="let option of poll.options" [value]="option._id" class="vote-option">
+            {{option.value}}
+          </mat-radio-button>
+        </mat-radio-group>
 
-        <!-- span *ngIf="canCreateCustomOption()" class="own-version">or vote with</span -->
+        <span *ngIf="canCreateCustomOption()" class="own-version">or vote with</span>
 
         <mat-input-container *ngIf="canCreateCustomOption()">
           <input matInput type="text"

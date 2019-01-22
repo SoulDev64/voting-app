@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatCardModule,
     MatSelectModule,
     MatTooltipModule,
-    MatMenuModule
+    MatMenuModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule { }
