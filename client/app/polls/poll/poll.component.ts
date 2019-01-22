@@ -114,4 +114,8 @@ export class PollComponent implements OnInit, OnDestroy {
     return !!(vote.option || vote.newOption);
   }
 
+  isLoggedIn() {
+    return this.auth.isLoggedIn();
+  }
+
 }

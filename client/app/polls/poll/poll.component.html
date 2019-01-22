@@ -29,7 +29,9 @@
         </mat-input-container>
 
       </div>
+      <div class="no-votes" *ngIf="!isLoggedIn()"><strong>Vous devez être identifié pour voter</strong></div>
       <button type="submit" class="vote-button" mat-raised-button color="primary"
+              *ngIf="isLoggedIn()"
               [disabled]="!isValid(voteForm.value)">
         Vote
       </button>

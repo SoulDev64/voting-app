@@ -1,26 +1,9 @@
 <div class="home">
   <div class="home-content">
     <h1 color="accent">Plateforme de votes</h1>
-    <h2>Assemblée Citoyenne des Gilets Jaunes de Grand Pau</h2>
+    <h2>une initiative de l'Assemblée Citoyenne des Gilets Jaunes de Grand Pau</h2>
     <button mat-raised-button color="accent" routerLink="/polls">Liste des votes</button>
-    <p *ngIf="!isLoggedIn()">Or <a routerLink="/login">log in</a> to create your own poll</p>
-    <p *ngIf="isLoggedIn()">Or <a routerLink="/create">create</a> a new poll</p>
-  </div>
-</div>
-<div class="columns">
-  <div class="column">
-    <mat-icon color="primary">done_all</mat-icon>
-    <h3>Take polls</h3>
-    <p>You can view and take polls created by other users</p>
-  </div>
-  <div class="column">
-    <mat-icon color="primary">add_circle_outline</mat-icon>
-    <h3>Create polls</h3>
-    <p>You can create your own customisable polls</p>
-  </div>
-  <div class="column">
-    <mat-icon color="primary">sort</mat-icon>
-    <h3>Statistics</h3>
-    <p>We provide statistics in form of graphs for all polls</p>
+    <p *ngIf="!isLoggedIn()">ou <a routerLink="/login">Identifiez-vous</a> pour voter</p>
+    <p *ngIf="!isLoggedIn()">ou <a routerLink="/register">Créer votre compte</a> pour voter</p>
   </div>
 </div>
