@@ -39,13 +39,13 @@ export class CreateComponent implements OnInit {
 
   initOptions() {
     return [
-      this.fb.group({value: ['Excellent', Validators.required]}),
-      this.fb.group({value: ['Très bien', Validators.required]}),
-      this.fb.group({value: ['Bien', Validators.required]}),
-      this.fb.group({value: ['Assez bien', Validators.required]}),
-      this.fb.group({value: ['Passable', Validators.required]}),
+      this.fb.group({value: ['À rejeter', Validators.required]}),
       this.fb.group({value: ['Insuffisant', Validators.required]}),
-      this.fb.group({value: ['À rejeter', Validators.required]})
+      this.fb.group({value: ['Passable', Validators.required]}),
+      this.fb.group({value: ['Assez bien', Validators.required]}),
+      this.fb.group({value: ['Bien', Validators.required]}),
+      this.fb.group({value: ['Très bien', Validators.required]}),
+      this.fb.group({value: ['Excellent', Validators.required]})
     ];
   }
 
