@@ -104,7 +104,7 @@ export class PollComponent implements OnInit, OnDestroy {
     this.polls.vote(this.poll._id, option).subscribe((poll) => {
       this.poll = poll;
       this.voteForm.reset();
-      this.toastr.info('Your vote has been counted');
+      this.toastr.info('Votre vote a bien été enregistré');
     }, (error) => {
       this.toastr.error(error);
     });
