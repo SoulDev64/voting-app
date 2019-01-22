@@ -25,9 +25,11 @@ export default class UsersController {
   register = (req, res) => {
 
     // TODO: pas besoin du password
-    const { name, email, password } = req.body;
+    const { name, surname, city, email, password } = req.body;
 
     if (!name) return res.status(400).send({message: 'Nom requis'});
+    if (!surname) return res.status(400).send({message: 'Prénom requis'});
+    if (!city) return res.status(400).send({message: 'Comune requise'});
     if (!email) return res.status(400).send({message: 'Email requis'});
 
     // TODO: pas de password juste un token
@@ -36,7 +38,7 @@ export default class UsersController {
     if (!validator.isEmail(email)) return res.status(400).send({message: 'Email invalide'});
     if (password.length < 6) return res.status(400).send({message: 'Le mot de passe doit au moins contenir 6 caractères'});
 
-    const newUser = new User({name, email});
+    const newUser = new User({name, surname, city, email});
     newUser.hashPassword(password);
 
     User.findOne({email}, (err, user) => {
@@ -51,7 +53,7 @@ export default class UsersController {
         // TODO: pas de login à l'issue de l'inscription
         req.logIn(newUser, err => {
           if (err) return res.status(500).send(err);
-          return res.send({_id: newUser._id, name: newUser.name, email: newUser.email});
+          return res.send({_id: newUser._id, name: newUser.name, surname: newUser.surname, city: newUser.city, email: newUser.email});
         })
       })
     });

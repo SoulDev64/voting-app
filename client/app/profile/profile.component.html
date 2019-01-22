@@ -2,9 +2,17 @@
   <h1 class="title">Profile</h1>
   <form [formGroup]="userForm">
     <mat-input-container>
-      <input type="text" matInput placeholder="Name"
+      <input type="text" matInput placeholder="Nom"
              [formControl]="userForm.controls.name">
     </mat-input-container>
+      <mat-input-container>
+        <input type="text" matInput placeholder="Prénom"
+               [formControl]="userForm.controls.surname">
+      </mat-input-container>
+      <mat-input-container>
+        <input type="text" matInput placeholder="Comune"
+               [formControl]="userForm.controls.city">
+      </mat-input-container>
     <mat-input-container>
       <input type="text" matInput placeholder="Email"
              [formControl]="userForm.controls.email">

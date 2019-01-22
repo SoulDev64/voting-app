@@ -7,6 +7,14 @@ const UserSchema = new Schema({
     type: String,
     required: 'Nom requis'
   },
+  surname: {
+    type: String,
+    required: 'Prénom requis'
+  },
+  city: {
+    type: String,
+    required: 'Comune requise'
+  },
   email: {type: String,
     unique: true,
     required: 'Email requis',

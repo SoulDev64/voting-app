@@ -25,6 +25,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userForm = this.fb.group({
       name: {value: this.user.name, disabled: true},
+      surname: {value: this.user.surname, disabled: true},
+      city: {value: this.user.city, disabled: true},
       email: {value: this.user.email, disabled: true}
     });
 
