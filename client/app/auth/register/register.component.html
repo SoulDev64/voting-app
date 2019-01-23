@@ -13,10 +13,10 @@
     <mat-input-container>
       <input matInput type="email"  placeholder="Email" [formControl]="userForm.controls['email']">
     </mat-input-container>
-    <mat-input-container>
+    <!-- mat-input-container>
       <input matInput type="password"  placeholder="Mot de passe" [formControl]="userForm.controls['password']">
-    </mat-input-container>
-    <button type="submit" mat-raised-button color="primary" [disabled]="!userForm.valid">Enregistrement</button>
-    <button type="button" mat-button color="accent" routerLink="/login">Identification</button>
+    </mat-input-container -->
+    <button type="submit" mat-raised-button color="primary" [disabled]="!userForm.valid">Création de votre compte</button>
+    <button type="button" mat-button color="accent" routerLink="/login">ou Identification</button>
   </form>
 </div>

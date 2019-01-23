@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { PollsListComponent } from './polls/pollsList/pollsList.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { ConfirmComponent } from './auth/confirm/confirm.component';
 import { PollComponent } from './polls/poll/poll.component';
 import { CreateComponent } from './polls/create/create.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -42,6 +43,10 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'confirm/:hash',
+    component: ConfirmComponent
   },
   {
     path: '**',

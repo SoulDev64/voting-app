@@ -9,6 +9,8 @@ export default function setRoutes(app) {
   // auth
   app.post('/api/login', usersController.login);
 
+  app.get('/api/check-token/:hash', usersController.checkToken);
+
   app.post('/api/register', usersController.register);
 
   app.get('/api/logout', usersController.logout);

@@ -4,9 +4,9 @@
     <mat-input-container>
       <input matInput type="email"  placeholder="Email" [formControl]="userForm.controls['email']">
     </mat-input-container>
-    <mat-input-container>
+    <!-- mat-input-container>
       <input matInput type="password"  placeholder="Mot de passe" [formControl]="userForm.controls['password']">
-    </mat-input-container>
+    </mat-input-container -->
     <button type="submit" mat-raised-button color="primary" [disabled]="!userForm.valid">Identification</button>
     <button type="button" mat-button color="accent" routerLink="/register">Inscription</button>
   </form>

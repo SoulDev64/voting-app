@@ -1,18 +1,13 @@
 import * as passport from 'passport';
 import * as validator from 'validator';
 import User from '../models/user.model';
+const nodemailer = require("nodemailer");
+const UIDGenerator = require('uid-generator');
 
 export default class UsersController {
 
-  login = (req, res, next) => {
-    console.log(req.body);
-    const { email, password } = req.body;
-
-    // TODO: AUTH via MAIL > TOKEN
-    if (!email) return res.status(400).send({message: 'Email requis'});
-    if (!password) return res.status(400).send({message: 'Mot de passe requis'});
-
-    passport.authenticate('local', function(err, user, info) {
+  checkToken = (req, res, next) => {
+    passport.authenticate('hash', function(err, user, info) {
       if (err) { return res.status(500).send(err); }
       if (!user) { return res.status(400).send(info); }
       req.logIn(user, err => {
@@ -20,6 +15,62 @@ export default class UsersController {
         return res.send({_id: user._id, name: user.name, email: user.email});
       });
     })(req, res, next);
+  }
+
+
+  login = (req, res, next) => {
+    console.log("login",req.body);
+    const { email } = req.body;
+
+    if (!email) return res.status(400).send({message: 'Email requis'});
+    if (!validator.isEmail(email)) return res.status(400).send({message: 'Email invalide'});
+
+    // Test si compte existant
+    User.findOne({ email: email }, function (err, user) {
+
+      if (err) { res.status(500).send(err); }
+      if (!user || !user.email) { res.status(400).send({message: 'Email invalide'}) }
+
+      // Genere le hash
+      const uidgen = new UIDGenerator(UIDGenerator.BASE36, 64);
+
+      uidgen.generate((err, uid) => {
+        if (err) throw err;
+
+        user.hash = uid;
+        user.save(err => {
+          if (err) return res.status(500).send({message: err.message});
+          // Sendmail
+          // create reusable transporter object using the default SMTP transport
+          let transporter = nodemailer.createTransport({
+            host: "localhost",
+            port: 25,
+            secure: false, // true for 465, false for other ports
+            //auth: {
+              //  user: account.user, // generated ethereal user
+              //  pass: account.pass // generated ethereal password
+              //}
+            });
+
+            // setup email data with unicode symbols
+            let mailOptions = {
+              from: '"eVoteGG" <evote@gilets-jaunes.online>', // sender address
+              to: "jeff.besnard@gmail.com", // list of receivers
+              subject: "eVoteGJ lien d'identification à la plateforme de vote ✔", // Subject line
+              text: "TOKEN : " + uid, // plain text body
+              html: "TOKEN : " + uid // html body
+            };
+
+            // send mail with defined transport object
+            let info = transporter.sendMail(mailOptions)
+
+            console.log("Message sent: %s", info.messageId);
+
+            return res.send({message: 'Mail envoyé avec succès'});
+          });
+        });
+
+    });
   };
 
   register = (req, res) => {

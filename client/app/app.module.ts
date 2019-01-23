@@ -5,6 +5,7 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { ConfirmComponent } from './auth/confirm/confirm.component';
 import { PollsListComponent } from './polls/pollsList/pollsList.component';
 import { LoginComponent } from './auth/login/login.component';
 import { NavComponent } from './nav/nav.component';
@@ -17,6 +18,7 @@ import { ProfileComponent } from './profile/profile.component';
   declarations: [
     AppComponent,
     HomeComponent,
+    ConfirmComponent,
     PollsListComponent,
     LoginComponent,
     NavComponent,

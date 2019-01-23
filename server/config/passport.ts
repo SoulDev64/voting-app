@@ -1,7 +1,7 @@
 import * as passport from 'passport';
 import User from '../models/user.model';
 
-import addLocalStrategy from './strategies/local';
+import addLocalStrategy from './strategies/hash';
 
 export default function setPassport() {
 

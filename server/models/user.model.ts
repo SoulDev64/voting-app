@@ -20,9 +20,11 @@ const UserSchema = new Schema({
     required: 'Email requis',
     match: [/.+\@.+\..+/, "Merci d\'indiquer un email valide"]
   },
-  password: {
-    type: String,
-    required: 'Mot de passe requis'
+  hash: {
+    type: String
+  },
+  isAdmin: {
+    type: Boolean
   }
 });
 

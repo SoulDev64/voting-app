@@ -33,6 +33,11 @@ export class AuthService {
     return user;
   }
 
+  chekToken(token) {
+    return this.http.makeRequest(`${environment.baseUrl}/api/check-token/${token.hash}`, 'get')
+      .map(data => sessionStorage.setItem('user', JSON.stringify(data)));
+  }
+
   changePassword(data) {
     return this.http.makeRequest(`${environment.baseUrl}/api/change-password`, 'post', null, data);
   }
