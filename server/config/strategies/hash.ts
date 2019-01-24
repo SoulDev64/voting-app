@@ -9,8 +9,7 @@ export default function addLocalStrategy() {
   passport.use(new HashStrategy(
     {},
     function(hash, done) {
-      console.log('addLocalStrategy',hash);
-      User.findOne({ /*hash: hash*/ }, function (err, user) {
+      User.findOne({ hash: hash }, function (err, user) {
         if (err) { return done(err); }
         if (!user) { return done(null, false); }
         return done(null, user);

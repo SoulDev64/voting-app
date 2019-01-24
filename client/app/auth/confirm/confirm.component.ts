@@ -19,7 +19,7 @@ export class ConfirmComponent implements OnInit {
   ngOnInit() {
     const confirm = this.route.params.subscribe(params => {
       const hash = params['hash'];
-      this.auth.chekToken({hash}).subscribe(() => {
+      this.auth.checkToken({hash}).subscribe(() => {
         this.router.navigate(['/polls']);
       }, (error) => {
         this.toastr.error(error);

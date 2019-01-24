@@ -10,7 +10,7 @@ export default function setPassport() {
   });
 
   passport.deserializeUser((id, done) => {
-    User.findById(id, '-password -salt', function(err, user) {
+    User.findById(id, function(err, user) {
       done(err, user);
     })
   });

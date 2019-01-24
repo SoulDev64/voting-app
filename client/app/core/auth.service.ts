@@ -10,8 +10,8 @@ export class AuthService {
   submit(loggingIn, user) {
     const action = loggingIn ? 'login' : 'register';
     const url = `${environment.baseUrl}/api/${action}`;
-    return this.http.makeRequest(url, 'post', null, user)
-      .map(data => sessionStorage.setItem('user', JSON.stringify(data)));
+    return this.http.makeRequest(url, 'post', null, user);
+      // .map(data => sessionStorage.setItem('user', JSON.stringify(data)));
   }
 
   isLoggedIn() {
@@ -33,7 +33,7 @@ export class AuthService {
     return user;
   }
 
-  chekToken(token) {
+  checkToken(token) {
     return this.http.makeRequest(`${environment.baseUrl}/api/check-token/${token.hash}`, 'get')
       .map(data => sessionStorage.setItem('user', JSON.stringify(data)));
   }

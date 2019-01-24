@@ -19,80 +19,44 @@ export default class UsersController {
 
 
   login = (req, res, next) => {
-    console.log("login",req.body);
+
     const { email } = req.body;
 
     if (!email) return res.status(400).send({message: 'Email requis'});
     if (!validator.isEmail(email)) return res.status(400).send({message: 'Email invalide'});
 
+    // Pas beau
+    const myThis = this;
+
     // Test si compte existant
     User.findOne({ email: email }, function (err, user) {
 
       if (err) { res.status(500).send(err); }
-      if (!user || !user.email) { res.status(400).send({message: 'Email invalide'}) }
+      if (!user || user == null) { res.status(400).send({message: 'Email invalide'}) }
 
-      // Genere le hash
-      const uidgen = new UIDGenerator(UIDGenerator.BASE36, 64);
-
-      uidgen.generate((err, uid) => {
-        if (err) throw err;
-
-        user.hash = uid;
-        user.save(err => {
-          if (err) return res.status(500).send({message: err.message});
-          // Sendmail
-          // create reusable transporter object using the default SMTP transport
-          let transporter = nodemailer.createTransport({
-            host: "localhost",
-            port: 25,
-            secure: false, // true for 465, false for other ports
-            //auth: {
-              //  user: account.user, // generated ethereal user
-              //  pass: account.pass // generated ethereal password
-              //}
-            });
-
-            // setup email data with unicode symbols
-            let mailOptions = {
-              from: '"eVoteGG" <evote@gilets-jaunes.online>', // sender address
-              to: "jeff.besnard@gmail.com", // list of receivers
-              subject: "eVoteGJ lien d'identification à la plateforme de vote ✔", // Subject line
-              text: "TOKEN : " + uid, // plain text body
-              html: "TOKEN : " + uid // html body
-            };
-
-            // send mail with defined transport object
-            let info = transporter.sendMail(mailOptions)
-
-            console.log("Message sent: %s", info.messageId);
-
-            return res.send({message: 'Mail envoyé avec succès'});
-          });
-        });
+      return myThis.sendMailToken(res, user);
 
     });
   };
 
   register = (req, res) => {
 
-    // TODO: pas besoin du password
-    const { name, surname, city, email, password } = req.body;
+    const { name, surname, city, email } = req.body;
 
     if (!name) return res.status(400).send({message: 'Nom requis'});
     if (!surname) return res.status(400).send({message: 'Prénom requis'});
     if (!city) return res.status(400).send({message: 'Comune requise'});
     if (!email) return res.status(400).send({message: 'Email requis'});
 
-    // TODO: pas de password juste un token
-    if (!password) return res.status(400).send({message: 'Mot de passe requis'});
-
     if (!validator.isEmail(email)) return res.status(400).send({message: 'Email invalide'});
-    if (password.length < 6) return res.status(400).send({message: 'Le mot de passe doit au moins contenir 6 caractères'});
 
     const newUser = new User({name, surname, city, email});
-    newUser.hashPassword(password);
+
+    // Pas beau
+    const myThis = this;
 
     User.findOne({email}, (err, user) => {
+
       if (err) return res.status(500).send(err);
       if (user) {
         return res.status(400).send({message: 'Un utilisateur éxiste déjà avec cet email'});
@@ -101,12 +65,9 @@ export default class UsersController {
       newUser.save(err => {
         if (err) return res.status(500).send(err);
 
-        // TODO: pas de login à l'issue de l'inscription
-        req.logIn(newUser, err => {
-          if (err) return res.status(500).send(err);
-          return res.send({_id: newUser._id, name: newUser.name, surname: newUser.surname, city: newUser.city, email: newUser.email});
-        })
-      })
+        return myThis.sendMailToken(res, newUser);
+      });
+
     });
   };
 
@@ -147,4 +108,48 @@ export default class UsersController {
 
   // TODO: ajouter isAdmin
 
+  sendMailToken = (res, user) => {
+    console.log('passe')
+    // Genere le hash
+    const uidgen = new UIDGenerator(UIDGenerator.BASE36, 64);
+
+    uidgen.generate((err, uid) => {
+      if (err) return res.status(500).send(err);
+
+      user.hash = uid;
+
+      user.save(err => {
+        if (err) return res.status(500).send({message: err.message});
+        // Sendmail
+        // create reusable transporter object using the default SMTP transport
+        let transporter = nodemailer.createTransport({
+          host: "localhost",
+          port: 25,
+          secure: false, // true for 465, false for other ports
+          //auth: {
+            //  user: account.user, // generated ethereal user
+            //  pass: account.pass // generated ethereal password
+            //}
+          });
+
+          // setup email data with unicode symbols
+          const baseUrl = "https://evote.gilets-jaunes.online/confirm/" + uid;
+          let mailOptions = {
+            from: '"eVoteGG" <evote@gilets-jaunes.online>', // sender address
+            to: "jeff.besnard@gmail.com", // list of receivers
+            subject: "eVoteGJ lien d'identification à la plateforme de vote ✔", // Subject line
+            text: "URL : " + baseUrl, // plain text body
+            html: "URL : " + baseUrl // html body
+          };
+
+          // send mail with defined transport object
+          let info = transporter.sendMail(mailOptions)
+
+          console.log("Message sent: %s", mailOptions.text);
+
+          return res.status(401).send({message: 'Mail envoyé avec succès'});
+        });
+      });
+
+  }
 }
