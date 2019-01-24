@@ -9,7 +9,7 @@ export default function addLocalStrategy() {
   passport.use(new HashStrategy(
     {},
     function(hash, done) {
-      User.findOne({ hash: hash }, function (err, user) {
+      User.findOne({ hash: hash }, function (err, user) { // expireToken: { $gt: Date.now() } }
         if (err) { return done(err); }
         if (!user) { return done(null, false); }
         return done(null, user);

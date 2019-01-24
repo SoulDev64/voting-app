@@ -31,10 +31,10 @@ export default class UsersController {
     // Test si compte existant
     User.findOne({ email: email }, function (err, user) {
 
-      if (err) { res.status(500).send(err); }
-      if (!user || user == null) { res.status(400).send({message: 'Email invalide'}) }
+      if (err) { return res.status(500).send(err); }
+      if (!user || user == null) { return res.status(400).send({message: 'Email invalide'}) }
 
-      return myThis.sendMailToken(res, user);
+      return myThis.sendMailToken(req, res, user);
 
     });
   };
@@ -65,7 +65,7 @@ export default class UsersController {
       newUser.save(err => {
         if (err) return res.status(500).send(err);
 
-        return myThis.sendMailToken(res, newUser);
+        return myThis.sendMailToken(req, res, newUser);
       });
 
     });
@@ -108,47 +108,55 @@ export default class UsersController {
 
   // TODO: ajouter isAdmin
 
-  sendMailToken = (res, user) => {
-    console.log('passe')
+  sendMailToken = (req, res, user) => {
+
+    if (!user || user == null) { return res.status(400).send({message: 'Email invalide'}) }
+
     // Genere le hash
     const uidgen = new UIDGenerator(UIDGenerator.BASE36, 64);
 
     uidgen.generate((err, uid) => {
       if (err) return res.status(500).send(err);
 
+      // Génération du Token
       user.hash = uid;
 
       user.save(err => {
         if (err) return res.status(500).send({message: err.message});
+
         // Sendmail
-        // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
           host: "localhost",
           port: 25,
-          secure: false, // true for 465, false for other ports
-          //auth: {
-            //  user: account.user, // generated ethereal user
-            //  pass: account.pass // generated ethereal password
-            //}
+          secure: false,
           tls: {rejectUnauthorized: false}
           });
 
           // setup email data with unicode symbols
-          const baseUrl = "https://evote.gilets-jaunes.online/confirm/" + uid;
+          const confirmUrl = "https://evote.gilets-jaunes.online/confirm/" + uid;
+          const fromMail = '"eVoteGJ" <evote@gilets-jaunes.online>'
+          const toMail = '"' + user.surname + ' ' + user.name + '" <' + user.email + '>';
           let mailOptions = {
-            from: '"eVoteGG" <evote@gilets-jaunes.online>', // sender address
-            to: "jeff.besnard@gmail.com", // list of receivers
+            from: fromMail, // sender address
+            to: toMail, // list of receivers
             subject: "eVoteGJ lien d'identification à la plateforme de vote ✔", // Subject line
-            text: "URL : " + baseUrl, // plain text body
-            html: "URL : " + baseUrl // html body
+            text: "Lien de d'dentification à la plateforme de vote : " + confirmUrl, // plain text body
+            html: "Lien de d'dentification à la plateforme de vote : " + confirmUrl // html body
           };
 
           // send mail with defined transport object
+
+          // // TODO:
+          // (node:57427) UnhandledPromiseRejectionWarning: Error: connect ECONNREFUSED 127.0.0.1:25
+          // [3]     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1082:14)
+          // [3] (node:57427) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+          // [3] (node:57427) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+
           let info = transporter.sendMail(mailOptions)
 
           console.log("Message sent: %s", mailOptions.text);
 
-          return res.status(401).send({message: 'Mail envoyé avec succès'});
+          return res.status(400).send({message: 'Mail envoyé avec succès'});
         });
       });
 
