@@ -52,7 +52,11 @@ export default class PollsController {
   }
 
   get = (req, res) => {
-    res.send(req.poll);
+    // exclude , { users:0, ips:0 }
+    const pollOut = req.poll;
+    pollOut.users = undefined;
+    pollOut.ips = undefined;
+    res.send(pollOut);
   };
 
   delete = (req, res) => {
@@ -63,7 +67,7 @@ export default class PollsController {
   };
 
   list = (req, res) => {
-    Poll.find({}).limit(parseInt(req.query.limit || 100)).populate('createdBy', 'name').exec((err, polls) => {
+    Poll.find({}, { users:0, ips:0, options:0 }).limit(parseInt(req.query.limit || 100)).populate('createdBy', 'name').exec((err, polls) => {
       if (err) return res.status(500).send(err);
       res.send(polls);
     })
@@ -77,7 +81,7 @@ export default class PollsController {
     if (!req.isAuthenticated()) {
       return res.status(403).send({message: 'Non autorisé'});
     }
-    
+
     if (id) {
       const optionToVote = poll.options.id(id);
       optionToVote.votes++;
@@ -90,6 +94,8 @@ export default class PollsController {
     poll.ips.push(req.headers['x-forwarded-for'] || req.connection.remoteAddress);
     poll.save((err) => {
       if (err) return res.status(500).send(err);
+      poll.users = undefined;
+      poll.ips = undefined;
       return res.send(poll);
     })
   };
