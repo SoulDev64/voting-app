@@ -44,7 +44,7 @@ export default class UsersController {
 
   register = (req, res) => {
 
-    const { name, surname, city, email } = req.body;
+    const { name, surname, city, zipcode, email } = req.body;
 
     if (!name) return res.status(400).send({message: 'Nom requis'});
     if (!surname) return res.status(400).send({message: 'Prénom requis'});
