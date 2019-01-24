@@ -11,7 +11,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 export class ProfileComponent implements OnInit {
 
   userForm: FormGroup;
-  passwordForm: FormGroup;
+  // passwordForm: FormGroup;
   user;
 
   constructor(private fb: FormBuilder,
@@ -27,25 +27,26 @@ export class ProfileComponent implements OnInit {
       name: {value: this.user.name, disabled: true},
       surname: {value: this.user.surname, disabled: true},
       city: {value: this.user.city, disabled: true},
+      zipcode: {value: this.user.zipcode, disabled: true},
       email: {value: this.user.email, disabled: true}
     });
 
-    this.passwordForm = this.fb.group({
-      oldPassword: ['', Validators.required],
-      newPassword: ['', Validators.required]
-    });
+    // this.passwordForm = this.fb.group({
+    //   oldPassword: ['', Validators.required],
+    //   newPassword: ['', Validators.required]
+    // });
   }
 
-  changePassword(passwords) {
-    const data = Object.assign(passwords, {userId: this.user._id});
-    this.auth.changePassword(data)
-      .subscribe(() => {
-        this.toastr.info('Password changed successfully');
-        this.passwordForm.reset(); // reset not working as expected, see https://github.com/angular/material2/issues/4190
-      },
-      (error) => {
-        this.toastr.error(error);
-      });
-  }
+  // changePassword(passwords) {
+  //   const data = Object.assign(passwords, {userId: this.user._id});
+  //   this.auth.changePassword(data)
+  //     .subscribe(() => {
+  //       this.toastr.info('Password changed successfully');
+  //       this.passwordForm.reset(); // reset not working as expected, see https://github.com/angular/material2/issues/4190
+  //     },
+  //     (error) => {
+  //       this.toastr.error(error);
+  //     });
+  // }
 
 }

@@ -26,14 +26,14 @@ export class RegisterComponent implements OnInit {
       name: ['', Validators.required],
       surname: ['', Validators.required],
       city: ['', Validators.required],
-      email: ['', Validators.compose([Validators.required, Validators.pattern(/.+\@.+\..+/)])],
-      // password: ['', Validators.required],
+      zipcode: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.pattern(/.+\@.+\..+/)])]
     });
   }
 
   submit(user) {
     this.auth.submit(false, user).subscribe(() => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/confirm']);
     }, (error) => {
       this.toastr.error(error);
     });

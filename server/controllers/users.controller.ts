@@ -12,7 +12,10 @@ export default class UsersController {
       if (!user) { return res.status(400).send(info); }
       req.logIn(user, err => {
         if (err) { return next(err); }
-        return res.send({_id: user._id, name: user.name, email: user.email});
+        // const userOut = user;
+        user.hash = undefined;
+        user.__v = undefined;
+        return res.send(user);
       });
     })(req, res, next);
   }
@@ -45,7 +48,8 @@ export default class UsersController {
 
     if (!name) return res.status(400).send({message: 'Nom requis'});
     if (!surname) return res.status(400).send({message: 'Prénom requis'});
-    if (!city) return res.status(400).send({message: 'Comune requise'});
+    if (!city) return res.status(400).send({message: 'Commumne requise'});
+    if (!zipcode) return res.status(400).send({message: 'Code postal requis'});
     if (!email) return res.status(400).send({message: 'Email requis'});
 
     if (!validator.isEmail(email)) return res.status(400).send({message: 'Email invalide'});
@@ -156,7 +160,7 @@ export default class UsersController {
 
           console.log("Message sent: %s", mailOptions.text);
 
-          return res.status(400).send({message: 'Mail envoyé avec succès'});
+          return res.send({message: 'Mail envoyé avec succès'});
         });
       });
 

@@ -13,7 +13,11 @@ const UserSchema = new Schema({
   },
   city: {
     type: String,
-    required: 'Comune requise'
+    required: 'Commune requise'
+  },
+  zipcode: {
+    type: String,
+    required: 'Code postal requise'
   },
   email: {type: String,
     unique: true,
