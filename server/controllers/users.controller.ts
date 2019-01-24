@@ -130,7 +130,8 @@ export default class UsersController {
             //  user: account.user, // generated ethereal user
             //  pass: account.pass // generated ethereal password
             //}
-          },tls: {rejectUnauthorized: false});
+          tls: {rejectUnauthorized: false}
+          });
 
           // setup email data with unicode symbols
           const baseUrl = "https://evote.gilets-jaunes.online/confirm/" + uid;
