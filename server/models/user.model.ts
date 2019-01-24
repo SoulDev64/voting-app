@@ -27,6 +27,9 @@ const UserSchema = new Schema({
   hash: {
     type: String
   },
+  expireToken: {
+    type: Number
+  },
   isAdmin: {
     type: Boolean
   }

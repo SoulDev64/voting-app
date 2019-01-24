@@ -122,8 +122,9 @@ export default class UsersController {
     uidgen.generate((err, uid) => {
       if (err) return res.status(500).send(err);
 
-      // Génération du Token
+      // Génération du Token + expiration
       user.hash = uid;
+      user.expireToken = (Date.now()) + (1 * 60 * 60 * 1000); // Maintenant + 1 heure
 
       user.save(err => {
         if (err) return res.status(500).send({message: err.message});
@@ -134,35 +135,34 @@ export default class UsersController {
           port: 25,
           secure: false,
           tls: {rejectUnauthorized: false}
-          });
-
-          // setup email data with unicode symbols
-          const confirmUrl = "https://evote.gilets-jaunes.online/confirm/" + uid;
-          const fromMail = '"eVoteGJ" <evote@gilets-jaunes.online>'
-          const toMail = '"' + user.surname + ' ' + user.name + '" <' + user.email + '>';
-          let mailOptions = {
-            from: fromMail, // sender address
-            to: toMail, // list of receivers
-            subject: "eVoteGJ lien d'identification à la plateforme de vote ✔", // Subject line
-            text: "Lien de d'dentification à la plateforme de vote : " + confirmUrl, // plain text body
-            html: "Lien de d'dentification à la plateforme de vote : " + confirmUrl // html body
-          };
-
-          // send mail with defined transport object
-
-          // // TODO:
-          // (node:57427) UnhandledPromiseRejectionWarning: Error: connect ECONNREFUSED 127.0.0.1:25
-          // [3]     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1082:14)
-          // [3] (node:57427) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
-          // [3] (node:57427) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
-
-          let info = transporter.sendMail(mailOptions)
-
-          console.log("Message sent: %s", mailOptions.text);
-
-          return res.send({message: 'Mail envoyé avec succès'});
         });
-      });
 
+        // setup email data with unicode symbols
+        const confirmUrl = "https://evote.gilets-jaunes.online/confirm/" + uid;
+        const fromMail = '"eVoteGJ" <evote@gilets-jaunes.online>'
+        const toMail = '"' + user.surname + ' ' + user.name + '" <' + user.email + '>';
+        let mailOptions = {
+          from: fromMail, // sender address
+          to: toMail, // list of receivers
+          subject: "eVoteGJ lien d'identification à la plateforme de vote ✔", // Subject line
+          text: "Lien pour s'identifier sur la plateforme de vote : " + confirmUrl, // plain text body
+          html: "Lien pour s'identifier sur la plateforme de vote : " + confirmUrl // html body
+        };
+
+        // send mail with defined transport object
+
+        // // TODO: Erreurs sur une machine sans sendmail
+        // (node:57427) UnhandledPromiseRejectionWarning: Error: connect ECONNREFUSED 127.0.0.1:25
+        // [3]     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1082:14)
+        // [3] (node:57427) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+        // [3] (node:57427) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+
+        let info = transporter.sendMail(mailOptions)
+
+        console.log("Message sent: %s", mailOptions.text);
+
+        return res.send({message: 'Mail envoyé avec succès'});
+      });
+    });
   }
 }
