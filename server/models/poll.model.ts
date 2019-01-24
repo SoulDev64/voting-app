@@ -10,7 +10,7 @@ const OptionSchema = new Schema({
 const PollSchema = new Schema({
   name: {
     type: String,
-    required: 'Poll name is required'
+    required: 'Nom du vote est requis'
   },
   createdBy: {type: Schema.Types.ObjectId, ref: 'User'},
   options: {
