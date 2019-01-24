@@ -3,6 +3,7 @@ import * as validator from 'validator';
 import User from '../models/user.model';
 const nodemailer = require("nodemailer");
 const UIDGenerator = require('uid-generator');
+const ZipCodesValidator = require('i18n-zipcodes');
 
 export default class UsersController {
 
@@ -48,13 +49,14 @@ export default class UsersController {
 
     if (!name) return res.status(400).send({message: 'Nom requis'});
     if (!surname) return res.status(400).send({message: 'Prénom requis'});
-    if (!city) return res.status(400).send({message: 'Commumne requise'});
     if (!zipcode) return res.status(400).send({message: 'Code postal requis'});
+    if (!city) return res.status(400).send({message: 'Commumne requise'});
     if (!email) return res.status(400).send({message: 'Email requis'});
 
     if (!validator.isEmail(email)) return res.status(400).send({message: 'Email invalide'});
+    if (!ZipCodesValidator('fr', zipcode)) return res.status(400).send({message: 'Code postal invalide'});
 
-    const newUser = new User({name, surname, city, email});
+    const newUser = new User({name, surname, zipcode, city, email});
 
     // Pas beau
     const myThis = this;

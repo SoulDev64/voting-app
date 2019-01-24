@@ -16,7 +16,7 @@ const UserSchema = new Schema({
     required: 'Commune requise'
   },
   zipcode: {
-    type: String,
+    type: Number,
     required: 'Code postal requise'
   },
   email: {type: String,
