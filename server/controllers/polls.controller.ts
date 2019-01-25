@@ -72,7 +72,7 @@ export default class PollsController {
 
   list = (req, res) => {
     const includeChp = {name:1,options:1,category:1,createdBy:1};
-    if(req.isAuthenticated()) includeChp.users = { $elemMatch: { $eq:req.user._id } } ;
+    if(req.isAuthenticated()) includeChp['users'] = { $elemMatch: { $eq:req.user._id } } ;
     Poll.find({}, includeChp).limit(parseInt(req.query.limit || 100)).populate('createdBy', 'name').exec((err, polls) => {
       if (err) return res.status(500).send(err);
       res.send(polls);
