@@ -1,4 +1,5 @@
 import Poll from '../models/poll.model';
+import Stack from '../models/stack.model';
 
 export default class PollsController {
 
@@ -94,9 +95,17 @@ export default class PollsController {
     poll.ips.push(req.headers['x-forwarded-for'] || req.connection.remoteAddress);
     poll.save((err) => {
       if (err) return res.status(500).send(err);
-      poll.users = undefined;
-      poll.ips = undefined;
-      return res.send(poll);
-    })
+      //
+      // Stack pour filtration GJ de l'AC
+      // /!\ Cela oblige à un vote non anonyme
+      //
+      const stackVote = new Stack({poll:poll._id,optionToVote:optionToVote,user:req.user._id});
+      stackVote.save((err) => {
+        if (err) return res.status(500).send(err);
+        poll.users = undefined;
+        poll.ips = undefined;
+        return res.send(poll);
+      });
+    });
   };
 }
