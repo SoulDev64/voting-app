@@ -99,7 +99,7 @@ export default class PollsController {
       // Stack pour filtration GJ de l'AC
       // /!\ Cela oblige à un vote non anonyme
       //
-      const stackVote = new Stack({poll:poll._id,optionToVote:optionToVote,user:req.user._id});
+      const stackVote = new Stack({poll:poll._id,optionToVote:id,user:req.user._id});
       stackVote.save((err) => {
         if (err) return res.status(500).send(err);
         poll.users = undefined;
