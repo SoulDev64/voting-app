@@ -1,5 +1,7 @@
 <div class="center-container">
   <h1 class="title">Votes</h1>
+  <p>Texte introductif à créer afin de présenter la liste des revendications soumise à vote</p>
+  <p>&nbsp;</p>
   <mat-card *ngFor="let poll of pollList" [routerLink]='[poll._id]'>
     <mat-card-title>
       {{poll.name}}

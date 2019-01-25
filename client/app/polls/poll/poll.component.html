@@ -42,11 +42,14 @@
       </button>
     </form>
 
-    <!--<p *ngIf="!canVote(poll)" class="voted">You already voted</p>-->
+    <p>&nbsp;</p>
+    <p>Texte introductif à créer afin de présenter le vote par jugement majoritaire ainsi que l'objectif du classement</p>
 
-    <!-- div class="chart" *ngIf="hasVotes(poll)">
+    <!-- p *ngIf="!canVote(poll)" class="voted">Vous avez déjà voté !</p -->
+
+    <div class="chart" *ngIf="hasVotes(poll)">
       <app-chart [options]="poll.options"></app-chart>
     </div>
-    <div class="no-votes" *ngIf="!hasVotes(poll)">No votes to show statistics yet</div -->
+    <div class="no-votes" *ngIf="!hasVotes(poll)">Pas encore de vote</div>
 
 </div>
