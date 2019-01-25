@@ -6,6 +6,9 @@ export default class PollsController {
   create = (req, res) => {
     let poll = new Poll(req.body);
 
+    // TODO: Vérification isAdmin
+
+
     poll.createdBy = req.user;
     poll.save((err) => {
       if (err) return res.status(500).send(err);
@@ -68,7 +71,8 @@ export default class PollsController {
   };
 
   list = (req, res) => {
-    Poll.find({}, { users:0, ips:0, options:0 }).limit(parseInt(req.query.limit || 100)).populate('createdBy', 'name').exec((err, polls) => {
+    console.log(req.user._id);
+    Poll.find({}, {name:1,options:1,category:1,createdBy:1,users: { $elemMatch: { $eq:req.user._id } } }).limit(parseInt(req.query.limit || 100)).populate('createdBy', 'name').exec((err, polls) => {
       if (err) return res.status(500).send(err);
       res.send(polls);
     })

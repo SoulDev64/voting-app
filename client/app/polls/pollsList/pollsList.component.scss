@@ -19,7 +19,12 @@ mat-card:last-child {
 mat-card {
   cursor: pointer;
 }
-
+mat-card-title span img {
+  opacity: 0.6;
+  width: 42px;
+  height: 42px;
+  vertical-align: middle;
+}
 .small {
   color: #374147;
   font-size: 12px;

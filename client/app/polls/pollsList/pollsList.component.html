@@ -4,6 +4,8 @@
   <p>&nbsp;</p>
   <mat-card *ngFor="let poll of pollList" [routerLink]='[poll._id]'>
     <mat-card-title>
+      <span *ngIf="poll.users.length"><img src="/assets/icons/vote-on.svg" /></span>
+      <span *ngIf="!poll.users.length"><img src="/assets/icons/vote-off.svg" /></span>
       {{poll.name}}
       <!-- p class="small">created by {{poll.createdBy.name}}</p -->
     </mat-card-title>
