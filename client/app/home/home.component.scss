@@ -37,6 +37,11 @@
 }
 
 .column {
+  text-align: left;
+  margin-right: 20px;
+}
+.column:last-child {
+  margin-right: 0;
   text-align: center;
 }
 

@@ -1,6 +1,8 @@
 <div class="center-container">
-  <h1 class="title">Votes</h1>
-  <p>Texte introductif à créer afin de présenter la liste des revendications soumise à vote</p>
+  <h1 class="title">Liste des revendications à voter</h1>
+  <p align="center">Prenez votre temps, pour donner votre avis sur chaque revendication.<br>
+    Vous pouvez ne pas avoir un avis et passer à la revendication suivante.<br>
+    Celle-ci sera alors classée comme "à rejeter" </p>
   <p>&nbsp;</p>
   <mat-card *ngFor="let poll of pollList" [routerLink]='[poll._id]'>
     <mat-card-title>
@@ -10,10 +12,10 @@
       <!-- p class="small">created by {{poll.createdBy.name}}</p -->
     </mat-card-title>
   </mat-card>
-  <mat-card *ngIf="pollList && !pollList.length">No polls yet. Create a first one!</mat-card>
-  <button mat-fab matTooltip="Add new poll" matTooltipPosition="above"
+  <!-- mat-card *ngIf="pollList && !pollList.length">No polls yet. Create a first one!</mat-card-->
+  <!-- button mat-fab matTooltip="Add new poll" matTooltipPosition="above"
           *ngIf="isLoggedIn() && pollList"
           routerLink="/create">
     +
-  </button>
+  </button -->
 </div>

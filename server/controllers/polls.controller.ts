@@ -33,7 +33,7 @@ export default class PollsController {
 
     ipVoted = req.poll.ips.indexOf(ip) !== -1;
 
-    if (userVoted || ipVoted) {
+    if (userVoted) {// || ipVoted) { 
       return res.status(403).send({message: 'Vous avez déjà voté'});
     }
     return next();
@@ -85,17 +85,20 @@ export default class PollsController {
 
     // Vote seulement si authentifié
     if (!req.isAuthenticated()) {
-      return res.status(403).send({message: 'Non autorisé'});
+      return res.status(403).send({message: 'Non autorisé (ERR-VOTE1)'});
     }
 
     if (id) {
       const optionToVote = poll.options.id(id);
       optionToVote.votes++;
     } else {
-      poll.options.push({value, votes: 1});
+      return res.status(403).send({message: 'Non autorisé (ERR-VOTE2)'});
+      // poll.options.push({value, votes: 1});
     }
     if (req.user) {
       poll.users.push(req.user._id);
+    } else {
+      return res.status(403).send({message: 'Non autorisé (ERR-VOTE3)'});
     }
     poll.ips.push(req.headers['x-forwarded-for'] || req.connection.remoteAddress);
     poll.save((err) => {

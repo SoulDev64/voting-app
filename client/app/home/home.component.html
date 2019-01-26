@@ -1,11 +1,25 @@
 <div class="home">
   <div class="home-content">
-    <h1 color="accent">Plateforme de votes</h1>
-    <h2>une initiative de l'Assemblée Citoyenne des Gilets Jaunes de Grand Pau</h2>
-    <button mat-raised-button color="accent" routerLink="/polls">Liste des votes</button>
-    <p *ngIf="!isLoggedIn()">ou <a routerLink="/login">Identifiez-vous</a> pour voter</p>
+    <h1 color="accent">Vote majoritaire pour les revendications</h1>
+    <h2>Assemblée Citoyenne des Gilets Jaunes du grand Pau (64)</h2>
+    <button mat-raised-button color="accent" routerLink="/polls">Liste des revendications à voter</button>
+  </div>
+</div>
+<div class="columns">
+  <div class="column">
+    <p>L’Assemblée Citoyenne des Gilets Jaunes du grand Pau a tenu sa première séance le dimanche 2 décembre 2018. Elle s’est réunie ensuite chaque semaine, en présence de 100 à 250 personnes, suivant les séances.</p>
+    <p>Un atelier « revendications » a démarré ses travaux le 4 décembre et a élaboré une première liste de 71 revendications, qui ont été regroupées ensuite en une liste réduite de 64 revendications, classées en 5 catégories : justice sociale, justice fiscale, transition écologique , économie, démocratie.</p>
+    <p>La dernière séance du 22 janvier a donné lieu à une reformulation et une clarification nécessaires de 12 revendications.</p>
+  </div>
+  <div class="column">
+    <p>Ces 64 revendications, sur lesquelles vous allez exprimer un avis, ont été validées par l’Assemblée Citoyenne, dans l’objectif de réaliser maintenant un vote préférentiel, par la méthode la plus rigoureuse et la plus démocratique.</p>
+    <p>Le but de ce vote est d'obtenir un classement des 64 revendications du plus fort pourcentage au plus faible, dont la dizaine arrivée en tête sera considérée comme consensuelle et prioritaire du mouvement des Gilets Jaunes au niveau du grand Pau.</p>
+    <p>Cette liste alimentera notre communication externe et collective&nbsp;: réseaux sociaux, site Internet, communication médias, rencontres avec les élus, tracts, affichettes, autocollants,... </p>
+  </div>
+  <div class="column">
+    <mat-icon color="primary">done_all</mat-icon>
+    <h3>C'est à vous</h3>
+    <p *ngIf="!isLoggedIn()"><a routerLink="/login">Identifiez-vous</a></p>
     <p *ngIf="!isLoggedIn()">ou <a routerLink="/register">Créer votre compte</a> pour voter</p>
-    <p>&nbsp;</p>
-    <p>Texte introductif à créer afin de présenter la plateforme</p>
   </div>
 </div>

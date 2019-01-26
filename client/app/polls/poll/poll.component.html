@@ -29,7 +29,10 @@
         </mat-input-container>
 
       </div>
-      <div class="no-votes" *ngIf="!isLoggedIn()"><strong>Vous devez être identifié pour voter</strong></div>
+      <div class="no-votes" *ngIf="!isLoggedIn()">
+        <strong>Vous devez être identifié pour voter</strong>
+        <a routerLink="/login">Identifiez-vous</a> ou <a routerLink="/register">Créer votre compte</a>
+      </div>
       <button type="submit" class="vote-button" mat-raised-button color="primary"
               *ngIf="isLoggedIn()"
               [disabled]="!isValid(voteForm.value)">
@@ -43,7 +46,8 @@
     </form>
 
     <p>&nbsp;</p>
-    <p>Texte introductif à créer afin de présenter le vote par jugement majoritaire ainsi que l'objectif du classement</p>
+    <p><i>Le jugement majoritaire est un mode de scrutin inventé par deux chercheurs français du Centre national de la recherche scientifique (CNRS), Michel Balinski et Rida Laraki1. Il repose sur une théorie mathématique publiée dans un livre paru chez MIT Press en 20112.</i></p>
+    <p><i>C'est un système du type vote par valeurs qui se distingue par l'utilisation d'appréciations verbales plutôt que numériques, et la détermination du classement par la médiane plutôt que la moyenne. </i></p>
 
     <!-- p *ngIf="!canVote(poll)" class="voted">Vous avez déjà voté !</p -->
 
