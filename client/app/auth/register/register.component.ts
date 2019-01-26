@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
 
   submit(user) {
     this.auth.submit(false, user).subscribe(() => {
-      this.router.navigate(['/confirm']);
+      this.router.navigate(['/confirm/new']);
     }, (error) => {
       this.toastr.error(error);
     });

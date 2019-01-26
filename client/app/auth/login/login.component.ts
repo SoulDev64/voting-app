@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   submit(user) {
     this.auth.submit(true, user).subscribe(() => {
-      this.router.navigate(['/confirm']);
+      this.router.navigate(['/confirm/login']);
     }, (error) => {
       this.toastr.error(error);
     });

@@ -11,6 +11,8 @@ import { AuthService } from '../../core/auth.service';
 })
 export class ConfirmComponent implements OnInit {
 
+  status;
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               private auth: AuthService,
@@ -19,12 +21,25 @@ export class ConfirmComponent implements OnInit {
   ngOnInit() {
     const confirm = this.route.params.subscribe(params => {
       const hash = params['hash'];
-      this.auth.checkToken({hash}).subscribe(() => {
-        this.router.navigate(['/polls']);
-      }, (error) => {
-        this.toastr.error(error);
-      });
+
+      if(hash == 'new') {
+        status = 'new';
+      } else if(hash == 'login') {
+        status = 'login';
+      } else {
+        this.auth.checkToken({hash}).subscribe(() => {
+          status = 'goodtoken';
+        }, (error) => {
+          status = 'badtoken';
+          this.toastr.error(error);
+        });
+      }
     });
+  }
+
+  confirmation(type) {
+    if(status == type) return true;
+    else return false;
   }
 
   isLoggedIn() {
