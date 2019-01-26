@@ -4,6 +4,9 @@ import Stack from '../models/stack.model';
 export default class PollsController {
 
   create = (req, res) => {
+    // FERMETURE
+    return res.status(403).send({message: 'Non autorisé'});
+    /*
     let poll = new Poll(req.body);
 
     // TODO: Vérification isAdmin
@@ -14,6 +17,7 @@ export default class PollsController {
       if (err) return res.status(500).send(err);
       res.send(poll);
     })
+    */
   };
 
   canVote = (req, res, next) => {
@@ -33,17 +37,21 @@ export default class PollsController {
 
     ipVoted = req.poll.ips.indexOf(ip) !== -1;
 
-    if (userVoted) {// || ipVoted) { 
+    if (userVoted) {// || ipVoted) {
       return res.status(403).send({message: 'Vous avez déjà voté'});
     }
     return next();
   };
 
   canDelete = (req, res, next) => {
+    // FERMETURE
+    return res.status(403).send({message: 'Non autorisé'});
+    /*
     if (!req.poll.createdBy.equals(req.user._id)) {
       return res.status(403).send({message: 'Non autorisé'})
     }
     return next();
+    */
   };
 
   getPoll(req, res, next) {
@@ -64,10 +72,14 @@ export default class PollsController {
   };
 
   delete = (req, res) => {
+    // FERMETURE
+    return res.status(403).send({message: 'Non autorisé'});
+    /*
     req.poll.remove((err) => {
       if (err) return res.status(500).send(err);
       return res.send({});
     })
+    */
   };
 
   list = (req, res) => {

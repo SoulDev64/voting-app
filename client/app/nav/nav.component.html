@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <a routerLink="/"><span class="brand" >eVoteGJ</span></a>
   <button mat-button routerLink="/polls">Liste des revendications à voter</button>
-  <button mat-button *ngIf="isLoggedIn()" routerLink="/create">+</button>
+  <!--button mat-button *ngIf="isLoggedIn()" routerLink="/create">+</button -->
   <span class="fill"></span>
   <button *ngIf="!isLoggedIn()" mat-button routerLink="/login">
     Identification
