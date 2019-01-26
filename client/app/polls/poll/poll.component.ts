@@ -99,7 +99,9 @@ export class PollComponent implements OnInit, OnDestroy {
     if (vote.option) {
       option = {id: vote.option};
     } else {
-      option = {value: vote.newOption};
+      this.toastr.error('Une option de vote doit être choisie');
+      return false;
+      // option = {value: vote.newOption};
     }
     this.polls.vote(this.poll._id, option).subscribe((poll) => {
       this.poll = poll;

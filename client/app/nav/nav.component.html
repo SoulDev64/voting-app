@@ -13,10 +13,6 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item [routerLink]="['/polls', {id: getUserId()}]">
-      <mat-icon>done_all</mat-icon>
-      <span>Mes votes</span>
-    </button>
     <button mat-menu-item [routerLink]="['/profile']">
       <mat-icon>account_box</mat-icon>
       <span>Mon profile</span>
