@@ -1,13 +1,11 @@
 <div class="center-container">
   <h1 class="title">Identification</h1>
+  <p align="center">Merci de saisir l'email que vous avez indiqué lors de votre inscription, un email vous sera envoyé comportant un lien direct d'authenfication valable une heure.</p>
   <form [formGroup]="userForm" (submit)="submit(userForm.value)">
     <mat-input-container>
       <input matInput type="email"  placeholder="Email" [formControl]="userForm.controls['email']">
     </mat-input-container>
-    <!-- mat-input-container>
-      <input matInput type="password"  placeholder="Mot de passe" [formControl]="userForm.controls['password']">
-    </mat-input-container -->
     <button type="submit" mat-raised-button color="primary" [disabled]="!userForm.valid">Recevoir le mail d'identification</button>
-    <button type="button" mat-button color="accent" routerLink="/register">ou Inscrivez-vous</button>
+    <button type="button" mat-button color="accent" routerLink="/register">Si vous ne disposez pas encore de compte inscrivez-vous</button>
   </form>
 </div>
