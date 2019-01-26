@@ -1,6 +1,7 @@
 <div class="center-container">
   <h1 class="title">Inscription</h1>
-  <p align="center"><strong>Pour voter, vous devez disposer d'un compte personnel</strong></p>
+  <p align="center"><strong>Pour voter, vous devez disposer d'un compte personnel, <br>
+    merci de renseigner tous les champs de ce formulaire d'enregistrement.(*)</strong></p>
   <form [formGroup]="userForm" (submit)="submit(userForm.value)">
     <mat-input-container>
       <input matInput type="text"  placeholder="Nom" [formControl]="userForm.controls['name']">
@@ -23,8 +24,8 @@
     <button type="submit" mat-raised-button color="primary" [disabled]="!userForm.valid">Création de votre compte</button>
     <button type="button" mat-button color="accent" routerLink="/login">ou Identifiez-vous si vous possédez déjà un compte</button>
   </form>
-  <p><i>Les données saisies vous permettes de vous identifier sur ce site et elles seront également utilisées afin de créer les statistiques nécessaires aux votes.<br>
-  Le critère de commune permettras un affinage des votes par localité.<br>
-  A l'issue du vote, les données personnels seront anonymisés afin d'être publier publiquement.<br>
+  <p>(*) <i>Les données saisies vous permettes de vous identifier sur ce site et elles seront également utilisées afin de créer les statistiques nécessaires aux votes.<br>
+  Le critère de commune permettra un affinage des votes par localité.<br>
+  A l'issue du vote les données personnels seront anonymisées afin d'être diffusées publiquement.<br>
   Votre email est réservé exclusivement à l'envoi des informations vous permettant d'être authentifié sur le site. Vos données personnels ne seront tranismises à aucun tier.</i></p>
 </div>

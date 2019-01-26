@@ -2,6 +2,7 @@
   <div class="home-content">
     <h1 color="accent">Vote majoritaire pour les revendications</h1>
     <h2>Assemblée Citoyenne des Gilets Jaunes du grand Pau (64)</h2>
+    <p>&Agrave; partir du dimanche 27 janvier à 0h01 et jusqu'au mardi 5 février 2019 à 19h00</p>
     <button mat-raised-button color="accent" routerLink="/polls">Liste des revendications à voter</button>
   </div>
 </div>
@@ -21,5 +22,6 @@
     <h3>C'est à vous</h3>
     <p *ngIf="!isLoggedIn()"><a routerLink="/login">Identifiez-vous</a></p>
     <p *ngIf="!isLoggedIn()">ou <a routerLink="/register">Créer votre compte</a> pour voter</p>
+    <button *ngIf="isLoggedIn()" mat-raised-button color="accent" routerLink="/polls">Liste des revendications à voter</button>
   </div>
 </div>

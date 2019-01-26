@@ -1,7 +1,14 @@
-<div class="center-container">
-  <h1 class="title">Confirmation</h1>
-  <p *ngIf="confirmation('new')">Votre inscription a bien été enregistrée, vous allez recevoir un email contenant le lien pour vous identifier.(si vous ne le voyez pas dans votre boite de réception, regarder dans vos courriers indésirables/Spam)</p>
-  <p *ngIf="confirmation('login')">Votre demande d'identification a bien été effectuée, vous allez recevoir un email contenant le lien pour vous identifier.(si vous ne le voyez pas dans votre boite de réception, regarder dans vos courriers indésirables/Spam)</p>
-  <p *ngIf="confirmation('badtoken')">La procédure d'identification a échouée, merci de recommencer votre <a routerLink="/login">Identification</a>.</p>
-  <p *ngIf="confirmation('goodtoken')">Félicitation vous avez été correctement identifié. A vous de <button mat-raised-button color="accent" routerLink="/polls">Donner votre avis !</button></p>
+<div class="center-container" align="center">
+  <h1 *ngIf="!confirmation('badtoken')" class="title">Confirmation</h1>
+  <h1 *ngIf="confirmation('badtoken')" class="title">Erreur</h1>
+  <p *ngIf="confirmation('new')">Félicitation votre inscription a bien été enregistrée, <br>
+    vous allez recevoir un email contenant le lien pour vous identifier.<br>
+    <i>(si vous ne le voyez pas dans votre boite de réception, regarder dans vos courriers indésirables/Spam)</i></p>
+  <p *ngIf="confirmation('login')">Votre demande d'identification a bien été effectuée, <br>
+    vous allez recevoir un email contenant le lien pour vous identifier.<br>
+    <i>(si vous ne le voyez pas dans votre boite de réception, regarder dans vos courriers indésirables/Spam)</i></p>
+  <p *ngIf="confirmation('goodtoken')">Félicitation vous avez été correctement identifié.</p>
+  <p *ngIf="confirmation('goodtoken')">A vous de <button mat-raised-button color="accent" routerLink="/polls">Donner votre avis !</button></p>
+  <p *ngIf="confirmation('badtoken')">La procédure d'identification a échouée, <br>
+    merci de recommencer votre <a routerLink="/login">Identification</a>.</p>
 </div>
