@@ -146,9 +146,9 @@ export default class UsersController {
         let mailOptions = {
           from: fromMail, // sender address
           to: toMail, // list of receivers
-          subject: "eVoteGJ lien d'identification à la plateforme de vote ✔", // Subject line
-          text: "Lien pour s'identifier sur la plateforme de vote : " + confirmUrl, // plain text body
-          html: "Lien pour s'identifier sur la plateforme de vote : " + confirmUrl // html body
+          subject: "Votre lien d'identification à la plateforme de vote eVoteGJ ✔", // Subject line
+          text: "Bonjour,\n\nMerci de votre participation.\nVous trouverez le lien pour vous identifier sur la plateforme de vote.\nMerci de copier-coller le lien ci-contre dans votre navigateur web : " + confirmUrl, // plain text body
+          html: "<p>Bonjour,</p><p>&nbsp;</p><p>Merci de votre participation.</p><p>&nbsp;</p><p>Pour accéder à la plateforme de vote <a href='" + confirmUrl + "'>cliquez ici</a>.</p><p>Ou si nécéssaire copier-coller le lien ci-contre dans votre navigateur web: " + confirmUrl + "</p>"
         };
 
         // send mail with defined transport object
